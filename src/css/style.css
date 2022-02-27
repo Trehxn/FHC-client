@@ -521,45 +521,91 @@ i {
 }
 
 .chatbox {
-    overflow-y: scroll;
+    font-family: "Ubuntu";
 
-    width: 45vw;
+    /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.chatbox-window {
+    overflow: hidden;
+    overflow-y: scroll;
+    width: 40vw;
     height: 50vh;
     border: .1px solid white;
-    box-sizing: border-box;
-    position: fixed;
-    inset: 50% 50%;
-    transform: translate(-50%, -50%);
     border-radius: 1rem;
+    border-bottom: none;
+
 }
 
-.chatbox .title {
+.chatbox-title {
+    margin-bottom: 1rem;
     color: white;
     font-family: "Ubuntu";
-    position: absolute;
-    left: 50%;
-    top: 1%;
-    transform: translateX(-50%);
-}
-
-.chatbox .left {
-    position: relative;
-    left: 1rem;
-    top: 1rem;
-    background-color: green;
     width: max-content;
-    margin-bottom: .4rem;
 }
 
-.chatbox .right {
-    position: relative;
-    inset: 1rem auto auto 80%;
-    transform: translateX(-50%);
-    background-color: rgba(59, 59, 207, 0.801);
+.chatbox-bubble {
+    height: max-content;
     width: max-content;
-    margin-bottom: .4rem;
+    margin: 0 1rem;
+    margin-bottom: .5rem;
+    color: rgb(243, 234, 234);
+    padding: 0.2rem 1rem;
+    border-radius: 10px;
+    font-size: .9rem;
 }
 
-.chatbox::-webkit-scrollbar { 
+.chatbox-bubble:first-child {
+    margin-top: .6rem;
+}
+
+.chatbox-message {
+    font-size: 1rem;
+}
+
+.chatbox-window .left {
+    background-color: rgba(28, 195, 28, 0.7);
+}
+
+.chatbox-window .right {
+    background-color: rgba(59, 59, 207, 0.7);
+}
+
+.chatbox-window::-webkit-scrollbar { 
     display: none; 
 }
+
+.chatbox-input {
+    background-color: #111B21;
+    height: 5vh;
+    width: 40vw;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.chatbox-input input{
+    font-family: "Ubuntu";
+    font-size: 1.2rem;
+    color: #86968B;
+    width: 22vw;
+    height: 3vh;
+    background-color: 2A3942;
+    position: relative;
+    inset: 1vh auto auto 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    padding-left: 1.8vw;
+}
+
+.chatbox-input input::-webkit-input-placeholder{
+    color: #86968B;
+}
+
+
+

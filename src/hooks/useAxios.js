@@ -37,7 +37,7 @@ const axiosReducer = (state, action) => {
   }
 };
 
-const useAxios = (params, onMount = false) => {
+const useAxios = (params) => {
   const [state, dispatch] = useReducer(axiosReducer, INITIAL_STATE);
 
   const callAxios = async () => {
@@ -56,9 +56,9 @@ const useAxios = (params, onMount = false) => {
   };
 
   useEffect(() => {
-    if (!onMount) return null;
+    if (!params.url && !params.data) return null;
     callAxios();
-  }, []);
+  }, [params.url]);
 
   return { ...state, callAxios };
 };

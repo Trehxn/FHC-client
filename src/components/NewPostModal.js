@@ -15,14 +15,11 @@ const NewPostModal = () => {
     state.auth ? state.auth.username : null
   );
 
-  const { loading, error, fetched, callAxios } = useAxios(
-    {
-      method: "post",
-      url: "http://localhost:5000/posts",
-      data: formData,
-    },
-    false
-  );
+  const { loading, error, fetched, callAxios } = useAxios({
+    method: "post",
+    url: !formData ? null : "posts",
+    data: formData,
+  });
 
   if (!loading && fetched) navigate("/timeline");
 
