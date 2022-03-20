@@ -4,14 +4,12 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import useAxios from "../hooks/useAxios";
-import jwt from "jsonwebtoken";
 
 const SignInPage = () => {
   const [formData, setFormData] = useState(null);
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
   const { loading, fetched, data, error, callAxios } = useAxios({
     method: "post",
@@ -22,9 +20,8 @@ const SignInPage = () => {
   if (loading && !fetched) return <div className="loading">Loading...</div>;
 
   if (fetched && !loading) {
-    const user = jwt.decode(token);
-    dispatch({ type: "SIGN_IN_SUCCESS", payload: user.username });
     localStorage.setItem("token", data.token);
+    dispatch({ type: "SIGN_IN_SUCCESS", payload: data?.user?.username });
     navigate("/");
   }
 

@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 import useAxios from "../hooks/useAxios";
 
 const ChatBox = () => {
+  const username = useSelector((state) => state.auth.username);
   const { register, handleSubmit } = useForm();
   const [formData, setFormData] = useState(null);
-
-  console.log(formData);
 
   const { data } = useAxios({
     url: "/chat",
   });
 
-  const { callAxios } = useAxios({
+  const {} = useAxios({
     url: !formData ? null : "/chat",
     method: "post",
     data: formData,
@@ -24,13 +24,10 @@ const ChatBox = () => {
       <div className="chatbox-title">Chat with other online users</div>
       <div className="chatbox-window">
         {data.map((data) => {
-          const className =
-            (data.username ? data.username : "left") + " chatbox-bubble";
+          const className = data.username === username ? "right" : "left";
           return (
-            <div key={data._id} className={className}>
-              <div className="chatbox-username">
-                {data.username ? data.username : "trehxn"}
-              </div>
+            <div key={data._id} className={`${className} chatbox-bubble`}>
+              <div className="chatbox-username">{data.username}</div>
               <div className="chatbox-message">{data.message}</div>
             </div>
           );
@@ -39,8 +36,7 @@ const ChatBox = () => {
       <div className="chatbox-input">
         <form
           onSubmit={handleSubmit((data) => {
-            setFormData(data);
-            callAxios();
+            setFormData({ ...data, username });
           })}
         >
           <input

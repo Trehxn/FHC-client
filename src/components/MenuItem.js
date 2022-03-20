@@ -1,18 +1,32 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import GoogleAuth from "./GoogleAuth";
+import jwt from "jsonwebtoken";
 
 const MenuItem = () => {
+  const [user, setUser] = useState({});
   const username = useSelector((state) => state.auth?.username);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch;
 
-  console.log(`username is ${username}`);
+  const token = localStorage.getItem("token");
+  const jwtUser = jwt.decode(token);
+  console.log(user);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-  });
+    setUser(jwtUser);
+  }, [token]);
+
+  if (user?.username) {
+    console.log("tried signing in");
+    dispatch({ type: "SIGN_IN_SUCCESS", payload: user.username });
+  }
+  const onSignOut = () => {
+    localStorage.clear();
+    dispatch({ type: "SIGN_OUT" });
+  };
 
   return (
     <>
@@ -28,9 +42,7 @@ const MenuItem = () => {
             ChatBox
           </Link>
           <button
-            onClick={() => {
-              localStorage.clear();
-            }}
+            onClick={() => onSignOut}
             className="btn header-button float-right"
           >
             Sign Out
