@@ -6,15 +6,12 @@ import { useNavigate } from "react-router-dom";
 import useAxios from "../hooks/useAxios";
 
 const SignInPage = () => {
-  const [formData, setFormData] = useState(null);
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { loading, fetched, data, error, callAxios } = useAxios({
-    method: "post",
-    url: !formData ? null : "users/username/",
-    data: formData,
+    runOnMount: false,
   });
 
   if (loading && !fetched) return <div className="loading">Loading...</div>;
@@ -31,9 +28,12 @@ const SignInPage = () => {
     <div id="sign-in-page">
       <form
         onSubmit={handleSubmit((data) => {
+          callAxios({
+            url: "users/username",
+            method: "post",
+            data: data,
+          });
           dispatch({ type: "SIGN_IN_START" });
-          setFormData(data);
-          console.log(formData);
         })}
       >
         <h1 className="heading">Sign In</h1>

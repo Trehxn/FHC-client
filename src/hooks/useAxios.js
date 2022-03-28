@@ -37,15 +37,19 @@ const axiosReducer = (state, action) => {
   }
 };
 
-const useAxios = (params) => {
+const useAxios = ({ modifyData, runOnMount = true, ...rest }) => {
   const [state, dispatch] = useReducer(axiosReducer, INITIAL_STATE);
 
-  const callAxios = async () => {
+  const callAxios = async (config = {}) => {
     dispatch({ type: "AXIOS_REQUEST_START" });
     try {
-      console.log(params);
-      const response = await axios(params);
-      dispatch({ type: "AXIOS_REQUEST_SUCCESS", payload: response.data });
+      const response = await axios({ ...rest, ...config });
+      dispatch({
+        type: "AXIOS_REQUEST_SUCCESS",
+        payload: modifyData
+          ? modifyData(state.data, response.data)
+          : response.data,
+      });
     } catch (err) {
       dispatch({
         type: "AXIOS_PROCESS_ERROR",
@@ -56,9 +60,9 @@ const useAxios = (params) => {
   };
 
   useEffect(() => {
-    if (!params.url && !params.data) return null;
+    if (!runOnMount) return null;
     callAxios();
-  }, [params.url]);
+  }, [runOnMount]);
 
   return { ...state, callAxios };
 };

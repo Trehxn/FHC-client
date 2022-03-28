@@ -550,6 +550,18 @@ i {
     width: max-content;
 }
 
+.chat-container{
+    display: flex;
+}
+
+.chat-container--right {
+    justify-content: flex-end;
+}
+
+.chat-container--left {
+    justify-content: flex-start;
+}
+
 .chatbox-bubble {
     height: max-content;
     width: max-content;
@@ -569,11 +581,12 @@ i {
     font-size: 1rem;
 }
 
-.chatbox-window .left {
+.chat-container .left {
     background-color: rgba(28, 195, 28, 0.7);
 }
 
-.chatbox-window .right {
+
+.chat-container .right {
     background-color: rgba(59, 59, 207, 0.7);
 }
 

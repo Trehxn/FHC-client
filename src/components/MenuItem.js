@@ -15,14 +15,14 @@ const MenuItem = () => {
   const jwtUser = jwt.decode(token);
   console.log(user);
 
-  useEffect(() => {
-    setUser(jwtUser);
-  }, [token]);
+  // useEffect(() => {
+  //   setUser(jwtUser);
+  // }, [token]);
 
-  if (user?.username) {
-    console.log("tried signing in");
-    dispatch({ type: "SIGN_IN_SUCCESS", payload: user.username });
-  }
+  // if (user?.username) {
+  //   console.log("tried signing in");
+  //   dispatch({ type: "SIGN_IN_SUCCESS", payload: user.username });
+  // }
   const onSignOut = () => {
     localStorage.clear();
     dispatch({ type: "SIGN_OUT" });
