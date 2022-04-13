@@ -41,6 +41,9 @@ const MenuItem = () => {
           <Link to="/chatbox" className="header-button">
             ChatBox
           </Link>
+          <Link to="/livechat" className="header-button">
+            Live Chat
+          </Link>
           <button
             onClick={() => onSignOut}
             className="btn header-button float-right"

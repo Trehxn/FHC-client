@@ -9,7 +9,9 @@
     padding: 0;
 }
 
-
+*::-webkit-scrollbar { 
+    display: none; 
+}
 
 body {
     margin: 0;
@@ -555,11 +557,11 @@ i {
 }
 
 .chat-container--right {
-    justify-content: flex-end;
+    flex-direction: row-reverse;
 }
 
 .chat-container--left {
-    justify-content: flex-start;
+    flex-direction: row;
 }
 
 .chatbox-bubble {
@@ -577,8 +579,17 @@ i {
     margin-top: .6rem;
 }
 
+.chatbox-username {
+    color: rgba(235, 241, 235, 0.555);
+}
+
 .chatbox-message {
     font-size: 1rem;
+}
+
+.chatbox-date {
+    font-size: .7rem;
+    margin: auto 0;
 }
 
 .chat-container .left {
@@ -590,9 +601,7 @@ i {
     background-color: rgba(59, 59, 207, 0.7);
 }
 
-.chatbox-window::-webkit-scrollbar { 
-    display: none; 
-}
+
 
 .chatbox-input {
     background-color: #111B21;
@@ -618,6 +627,90 @@ i {
 
 .chatbox-input input::-webkit-input-placeholder{
     color: #86968B;
+}
+
+.livechat-room {
+    padding: 3rem 4rem;
+    margin: 15rem auto;
+    background-color: white;   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+}
+
+
+
+.livechat-window {
+    width: 20vw;
+    /* background-color: lime; */
+    margin: 10rem auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.livechat-header {
+    padding: .5rem 1rem;
+    width: calc(100% - 2rem);
+    color: white;
+    background-color: #111B21;
+    border-radius: 3px;
+}
+
+.livechat-body {
+    color: #111B21;
+    width: 100%;
+    height: 40vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    /* overflow: hidden; */
+    overflow-y: scroll;
+}
+
+.livechat-input {
+    background-color: #fff;
+    width: 100%;
+    border: 1px solid #111B21;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.livechat-container {
+    display: flex;
+align-items: center;}
+
+.livechat-container--left {
+    flex-direction: row;
+}
+
+.livechat-container--right {
+    flex-direction: row-reverse;
+}
+
+.message {
+    height: max-content;
+    color: rgb(219, 219, 219);
+    width: fit-content;
+    margin: 0 .5rem .5rem .5rem;
+    background-color: rgb(28, 168, 28);
+    border-radius: 5px;
+    padding: .5rem 1rem;
+}
+
+.message--right {
+    background-color: rgb(12, 12, 116);
+}
+
+.message--left {
+    background-color: rgb(34, 126, 6);
+}
+
+.message:first-child {
+    margin-top: 1rem;
 }
 
 

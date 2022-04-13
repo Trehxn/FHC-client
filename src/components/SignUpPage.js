@@ -11,10 +11,8 @@ const SignUpPage = () => {
 
   const navigate = useNavigate();
 
-  const { loading, fetched, error } = useAxios({
-    method: "post",
-    url: !formData ? null : "http://localhost:5000/users",
-    data: formData,
+  const { loading, fetched, error, callAxios } = useAxios({
+    runOnMount: false,
   });
 
   if (!loading && fetched) navigate("/signin");
@@ -25,7 +23,11 @@ const SignUpPage = () => {
     <div id="sign-in-page">
       <form
         onSubmit={handleSubmit((data) => {
-          setFormData(data);
+          callAxios({
+            method: "post",
+            url: "http://localhost:5000/users",
+            data: data,
+          });
         })}
       >
         <h1 className="heading">Sign Up</h1>

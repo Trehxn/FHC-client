@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import date from "date-and-time";
+import ScrollToBottom from "react-scroll-to-bottom";
 
 import useAxios from "../hooks/useAxios";
 
@@ -31,32 +33,36 @@ const ChatBox = () => {
       <div className="chatbox">
         <div className="chatbox-title">Chat with other online users</div>
         <div className="chatbox-window">
-          {data?.map((data) => {
-            const className = data.username === username ? "right" : "left";
-            const containerClassName =
-              data.username === username
-                ? "chat-container--left"
-                : "chat-container--right";
-            return (
-              <div
-                key={data._id}
-                className={`${containerClassName} chat-container`}
-              >
-                <div className={`${className} chatbox-bubble`}>
-                  <div className="chatbox-username">{data.username}</div>
-                  <div className="chatbox-message">{data.message}</div>
+          <ScrollToBottom className="chatbox-window">
+            {data?.map((data) => {
+              const className = data.username === username ? "right" : "left";
+              const containerClassName =
+                data.username === username
+                  ? "chat-container--left"
+                  : "chat-container--right";
+              return (
+                <div
+                  key={data._id}
+                  className={`${containerClassName} chat-container`}
+                >
+                  <div className={`${className} chatbox-bubble`}>
+                    <div className="chatbox-username">{data.username}</div>
+                    <div className="chatbox-message">{data.message}</div>
+                  </div>
+                  <div className="chatbox-date">{data.date}</div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </ScrollToBottom>
         </div>
         <div className="chatbox-input">
           <form
             onSubmit={handleSubmit((data) => {
+              const now = date.format(new Date(), "DD/MM/YY HH:mm");
               callAxios({
                 url: "/chat",
                 method: "post",
-                data: { username, ...data },
+                data: { username, date: now, ...data },
               });
             })}
           >

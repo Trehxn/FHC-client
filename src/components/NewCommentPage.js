@@ -16,14 +16,9 @@ const NewCommentPage = () => {
   );
   const navigate = useNavigate();
 
-  const { loading, error, fetched, callAxios } = useAxios(
-    {
-      method: "post",
-      url: !formData ? null : `http://localhost:5000/comments/${postId}`,
-      data: formData,
-    },
-    false
-  );
+  const { loading, fetched, data, error, callAxios } = useAxios({
+    runOnMount: false,
+  });
 
   if (!loading && fetched) navigate(`/timeline/${postId}`);
 
@@ -34,7 +29,11 @@ const NewCommentPage = () => {
       <form
         onSubmit={handleSubmit((data) => {
           setFormData({ ...data, username, postId });
-          callAxios();
+          callAxios({
+            url: `http://localhost:5000/comments/${postId}`,
+            method: "post",
+            data: { ...data, username, postId },
+          });
         })}
       >
         <Link to="/timeline" className="close-button">

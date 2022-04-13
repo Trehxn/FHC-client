@@ -10,6 +10,7 @@ import Post from "./Post";
 import NewPostModal from "./NewPostModal";
 import NewCommentPage from "./NewCommentPage";
 import ChatBox from "./ChatBox";
+import LiveChat from "./LiveChat";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/newpost" element={<NewPostModal />} />
           <Route path="/newcomment/:postId" element={<NewCommentPage />} />
           <Route path="/chatbox" element={<ChatBox />} />
+          <Route path="/livechat" element={<LiveChat />} />
         </Routes>
       </BrowserRouter>
     </div>
